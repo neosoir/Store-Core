@@ -18,8 +18,17 @@ if ( isset( $_GET['controller'] ) )
     $nombre_controlador = ucfirst( $_GET['controller'] );
 
 else {
-    show_error( '0' );
-    exit();
+
+    if ( !isset( $_GET['actions'] ) )
+        $nombre_controlador = controller_default;
+
+    else {
+        
+        show_error( '0' );
+        exit();
+
+    }
+
 }
 
 if ( class_exists( $nombre_controlador ) ) {
@@ -31,9 +40,19 @@ if ( class_exists( $nombre_controlador ) ) {
         $controlador->$action();
     }
     
-    else
-        show_error('1');
+    else {
+
+        if ( !isset( $_GET['controller'] )  ) {
+
+            $action = action_default;
+            $controlador->$action();
+
+        }
+
+        else
+            show_error('1');
     
+    }
 
 }
 
