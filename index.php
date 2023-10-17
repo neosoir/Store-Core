@@ -2,34 +2,43 @@
 
 
 require_once 'autoload.php';
+require_once 'config/parameters.php';
 require_once 'views/layout/header.php';
 require_once 'views/layout/sidebar.php';
 
-if ( isset( $_GET['controller'] ) )
-    $nombre_controlador = $_GET['controller'] . 'Controller';
+function show_error( $number ) {
 
-else {
-    echo 'La pagina que buscas no existe';
-    exit();
+    $error = new Errors();
+    $error->index( $number );
+
 }
 
+
+if ( isset( $_GET['controller'] ) )
+    $nombre_controlador = ucfirst( $_GET['controller'] );
+
+else {
+    show_error( '0' );
+    exit();
+}
 
 if ( class_exists( $nombre_controlador ) ) {
     
     $controlador = new $nombre_controlador();
-
+    
     if ( isset( $_GET['action'] ) && method_exists( $controlador, $_GET['action'] ) ) {
         $action = $_GET['action'];
         $controlador->$action();
     }
-
-    else 
-        echo 'La pagina que buscas no existe1';
+    
+    else
+        show_error('1');
+    
 
 }
 
 else
-    echo 'La pagina que buscas no existe2';
+    show_error( '2' );
 
 
 require_once 'views/layout/footer.php';
