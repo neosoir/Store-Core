@@ -3,7 +3,7 @@
 class productController {
 
     public function index() {
-        echo "Product Controller, index action";
+        require_once 'views/product/top.php';
     }
 
 }
