@@ -11,14 +11,14 @@ require_once 'views/layout/sidebar.php';
 
 function show_error( $number ) {
 
-    $error = new Errors();
+    $error = new ErrorsController;
     $error->index( $number );
 
 }
 
 
 if ( isset( $_GET['controller'] ) )
-    $nombre_controlador = ucfirst( $_GET['controller'] );
+    $nombre_controlador = ucfirst( $_GET['controller'] ) . 'Controller';
 
 else {
 

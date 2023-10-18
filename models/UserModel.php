@@ -1,6 +1,6 @@
 <?php
 
-class Usuario {
+class UserModel {
 
     private $id;
     private $nombre;

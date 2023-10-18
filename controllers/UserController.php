@@ -1,8 +1,8 @@
 <?php
 
-require_once 'models/user.php';
+require_once 'models/UserModel.php';
 
-class User {
+class UserController {
 
     public function index() {
         echo "User Controller, index action";
@@ -25,7 +25,7 @@ class User {
 
             if ( $name && $lastname && $email && $password ) {
 
-                $user = new Usuario;
+                $user = new UserModel;
                 $user->setName( $name );
                 $user->setLastName( $lastname );
                 $user->setEmail( $email );
