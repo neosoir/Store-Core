@@ -18,14 +18,16 @@
         <?php endif; ?>
         <ul>
             <?php if ( isset( $_SESSION['admin'] ) ): ?>
+                <li><a href="<?= base_url ?>/category/index">Gestionar Categorias</a></li>
                 <li><a href="">Gestionar Pedidos</a></li>
-                <li><a href="">Gestionar Categorias</a></li>
                 <li><a href="">Gestionar Pedidos</a></li>
             <?php endif; ?>
 
             <?php if ( isset( $_SESSION['identity'] ) ): ?>
                 <li><a href="">Mis Pedidos</a></li>
                 <li><a href="<?= base_url ?>user/logout">Cerrar sesion</a></li>
+            <?php else: ?>
+                <li><a href="<?= base_url ?>user/register">Registrate Aqui</a></li>
             <?php endif; ?>
 
             
