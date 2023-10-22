@@ -29,4 +29,12 @@ class Utils {
 
     }
 
+    public static function showCategories() {
+
+        require_once 'models/CategoryModel.php';
+        $categories = new CategoryModel;
+        return $categories->getAll();
+
+    }
+
 }
