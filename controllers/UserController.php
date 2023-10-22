@@ -49,4 +49,56 @@ class UserController {
         header("Location:" . base_url . 'user/register');
 
     }
+
+    public function login() 
+    {
+
+        if ( isset( $_POST ) ) {
+            
+            // Identificar al usuario.
+
+            // Consultar a la base de datos.
+            $user = new UserModel;
+            $user->setEmail( $_POST['email'] );
+            $user->setPassword( $_POST['password'] );
+            $identity = $user->login();
+
+            if ( $identity && is_object( $identity ) ) {
+                $_SESSION['identity'] = $identity;
+
+                if ($identity->rol == 'admin') {
+                    $_SESSION['admin'] = true;
+                }
+            }
+            else {
+                $_SESSION['error_login'] = 'Identificacion faliida';
+            }
+            // Crear una session
+
+        }
+
+        header("Location:" . base_url);
+        
+    }
+
+    public function logout() {
+
+        if ( isset( $_SESSION['identity'] ) ) {
+
+            $_SESSION['identity'] = null;
+            unset($_SESSION['identity']);
+
+        }
+
+        if ( isset( $_SESSION['admin'] ) ) {
+
+            $_SESSION['admin'] = null;
+            unset($_SESSION['admin']);
+            
+        }
+
+        header("Location:" . base_url);
+
+    }
+
 }
