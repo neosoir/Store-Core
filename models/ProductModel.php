@@ -21,6 +21,24 @@ class ProductModel {
     }
 
     /**
+     * Get the value of id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     */
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of categoria_id
      */
     public function getCategoryId()
@@ -170,5 +188,17 @@ class ProductModel {
 
     }
 
+    public function delete() {
+
+        $sql        = "DELETE FROM productos WHERE id={$this->id}";
+        $delete     = $this->db->query( $sql );
+        $result     = false;
+
+        if ( $delete )
+            $result = true;
+
+        return $result;
+
+    }
 
 }

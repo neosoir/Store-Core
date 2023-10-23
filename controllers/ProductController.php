@@ -102,4 +102,34 @@ class ProductController {
 
     }
 
+    public function edit() {
+        var_dump($_GET);
+    }
+    
+    public function delete() {
+        
+        Utils::isAdmin();
+
+        $id = $_GET['id'];
+
+        if ( isset( $id ) ) {
+            
+            $product = new ProductModel;
+            $product->setId( $id );
+            $delete = $product->delete();
+
+            if ( $delete ) 
+                $_SESSION['delete'] = 'complete';
+
+            else
+                $_SESSION['delete'] = 'failed';
+
+        }
+        else    
+            $_SESSION['delete'] = 'failed';
+
+        header('Location:' . base_url . 'product/manage');
+
+    }
+
 }
