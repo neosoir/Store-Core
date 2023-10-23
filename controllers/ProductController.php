@@ -41,14 +41,7 @@ class ProductController {
             $category = isset( $_POST['category'] ) ? $_POST['category'] : false;
             $image = isset( $_FILES['image'] ) ? $_FILES['image'] : false;
 
-            /* echo "<pre>";
-            var_dump($image);
-            echo "</pre>";
-
-            die();
-             */
             if ( $name && $description && $price && $stock && $category && $image ) {
-                
                 
                 $product = new ProductModel();
 
@@ -58,32 +51,45 @@ class ProductController {
                 $product->setStock($stock);
                 $product->setCategoryId($category);
 
-                /* var_dump($_FILES);
-                die(); */
-
                 // Image.
-                $file = $_FILES['image'];
-                $filename = $file['name'];
-                $filetype = $file['type'];
+                $file       = $_FILES['image'];
 
-                if  (
-                        ( $filetype == 'image/jpg' )
-                        || ( $filetype == 'image/jpeg' )
-                        || ( $filetype == 'image/png' )
-                        || ( $filetype == 'image/gif' )
-                    ) 
-                {
+                if ( isset( $file ) ) {
 
-                    if ( !is_dir( 'uploads/images' ) )
-                        mkdir('uploads/images', 0777, true);
-
-                    move_uploaded_file( $file['tmp_name'], 'uploads/images/' . $filename );
-                    $product->setImage($filename);
+                    $filename   = $file['name'];
+                    $filetype   = $file['type'];
+    
+                    if  (
+                            ( $filetype == 'image/jpg' )
+                            || ( $filetype == 'image/jpeg' )
+                            || ( $filetype == 'image/png' )
+                            || ( $filetype == 'image/gif' )
+                        ) 
+                    {
+    
+                        if ( !is_dir( 'uploads/images' ) )
+                            mkdir('uploads/images', 0777, true);
+    
+                        move_uploaded_file( $file['tmp_name'], 'uploads/images/' . $filename );
+                        $product->setImage($filename);
+    
+                    }
 
                 }
 
-                $save = $product->save();
+                //
+                $id = $_GET['id'];
+                if ( $id ) {
 
+                    $product->setId( $id );
+                    $save = $product->edit();
+                    
+                }
+
+                else    
+                    $save = $product->save();
+
+                //
                 if ( $save )
                     $_SESSION['product'] = 'complete';
 
@@ -103,7 +109,23 @@ class ProductController {
     }
 
     public function edit() {
-        var_dump($_GET);
+
+        Utils::isAdmin();
+        $id = $_GET['id'];
+
+        if ( isset( $id ) ) {
+
+            $edit = true;
+            $product = new ProductModel;
+            $product->setId( $id );
+            $pro = $product->getOne();
+            require_once 'views/product/create.php';
+
+        }
+        else
+            header('Location:' . base_url . 'product/manage');
+        
+
     }
     
     public function delete() {

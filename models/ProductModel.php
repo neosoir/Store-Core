@@ -175,9 +175,38 @@ class ProductModel {
 
     }
 
+    /**
+     * Get all products from database
+     *
+     * @return void
+     */
+    public function getOne() {
+
+        return $this->db->query("SELECT * FROM productos WHERE id = {$this->getId()}")->fetch_object();
+
+    }
+
     public function save() {
         
         $sql    = "INSERT INTO productos VALUES( NULL, {$this->getCategoryId()}, '{$this->getName()}', '{$this->getDescription()}', '{$this->getPrice()}', '{$this->getStock()}', NULL, curdate(), '{$this->getImage()}')";
+        $save   = $this->db->query( $sql );
+        $result = false;
+
+        if ( $save )
+            $result = true;
+
+        return $result;
+
+    }
+
+    public function edit() {
+
+        $sql    = "UPDATE productos SET categoria_id = {$this->getCategoryId()}, nombre = '{$this->getName()}', descripcion = '{$this->getDescription()}', precio = '{$this->getPrice()}', stock = '{$this->getStock()}'";
+        
+        if ( $this->getImage()  !== null )
+            $sql    .= ", imagen = '{$this->getImage()}'";
+
+        $sql    .= " WHERE id = {$this->id}";
         $save   = $this->db->query( $sql );
         $result = false;
 
