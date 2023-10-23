@@ -175,6 +175,22 @@ class ProductModel {
 
     }
 
+    /**
+     * Get all products from category
+     *
+     * @return void
+     */
+    public function getAllByCategory() {
+
+        $sql  = "SELECT p.*, c.nombre as 'categoria_nombre' FROM productos p";
+        $sql .= " INNER JOIN categorias c ON c.id = p.categoria_id";
+        $sql .= " WHERE p.categoria_id = {$this->getCategoryId()}";
+        $sql .= " ORDER BY id DESC";
+
+        return $this->db->query( $sql );
+
+    }
+
     public function getRadom( $limit ) {
 
         return $this->db->query("SELECT * FROM productos ORDER BY RAND() LIMIT $limit");

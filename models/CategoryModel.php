@@ -11,7 +11,7 @@ class CategoryModel {
         $this->db = Database::connect();
     }
 
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
@@ -36,6 +36,12 @@ class CategoryModel {
     public function getAll() {
     
         return $this->db->query( "SELECT * FROM categorias ORDER BY id  DESC" );
+
+    }
+
+    public function getOne() {
+    
+        return $this->db->query( "SELECT * FROM categorias WHERE id={$this->getId()}" )->fetch_object();
 
     }
 

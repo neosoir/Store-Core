@@ -37,4 +37,25 @@ class Utils {
 
     }
 
+    public static function showProductsLopp( $products ) {
+
+        ?>
+        <?php while( $product = $products->fetch_object() ): ?>
+            <div class="product">
+                <a href="<?= base_url ?>product/look&id=<?= $product->id ?>">
+                    <?php if ( $product->imagen ): ?>
+                        <img src="<?= base_url ?>uploads/images/<?= $product->imagen ?>" alt="producto">
+                    <?php else: ?>
+                            <img src="<?= base_url ?>assets/img/camiseta.png" alt="producto">
+                    <?php endif; ?>
+                    <h2><?= $product->nombre ?></h2>
+                </a>
+                <p><?= $product->precio ?></p>
+                <a href="" class="button">Comprar</a>
+            </div>
+        <?php endwhile; ?>
+        <?php
+        
+    }
+
 }

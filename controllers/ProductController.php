@@ -13,6 +13,21 @@ class ProductController {
 
     }
 
+    public function look() {
+
+        $id = $_GET['id']; 
+
+        if ( isset( $id ) ) {
+
+            $productClass = new ProductModel;
+            $productClass->setId( $id );
+            $product = $productClass->getOne();
+
+        }
+        require_once 'views/product/look.php';
+
+    }
+
     public function manage() {
 
         Utils::isAdmin();

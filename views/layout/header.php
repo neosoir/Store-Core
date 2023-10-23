@@ -20,18 +20,17 @@ $categories = Utils::showCategories();
         <header id="header">
             <div id="logo">
                 <img src="<?= base_url ?>assets/img/camiseta.png" alt="Camiseta Logo">
-                <a href="index.php">Tienda de Camisetas</a>
+                <a href="<?= base_url ?>">Tienda de Camisetas</a>
             </div>
         </header>
     
         <!-- Menu. -->
         <nav id="menu">
             <ul>
-                <li><a href="#">Inicio</a></li>
+                <li><a href="<?= base_url ?>">Inicio</a></li>
 
                 <?php while( $category = $categories->fetch_object() ): ?>
-
-                    <li><a href="#"><?= $category->nombre ?></a></li>
+                    <li><a href="<?= base_url ?>category/look&id=<?= $category->id ?>"><?= $category->nombre ?></a></li>
                 <?php endwhile; ?>
 
             </ul>
