@@ -21,27 +21,9 @@ class ProductModel {
     }
 
     /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     */
-    public function setId($id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of categoria_id
      */
-    public function getCategoriaId()
+    public function getCategoryId()
     {
         return $this->categoria_id;
     }
@@ -49,9 +31,9 @@ class ProductModel {
     /**
      * Set the value of categoria_id
      */
-    public function setCategoriaId($categoria_id): self
+    public function setCategoryId($categoria_id): self
     {
-        $this->categoria_id = $categoria_id;
+        $this->categoria_id = $this->db->real_escape_string( $categoria_id );
 
         return $this;
     }
@@ -59,7 +41,7 @@ class ProductModel {
     /**
      * Get the value of nombre
      */
-    public function getNombre()
+    public function getName()
     {
         return $this->nombre;
     }
@@ -67,9 +49,9 @@ class ProductModel {
     /**
      * Set the value of nombre
      */
-    public function setNombre($nombre): self
+    public function setName($nombre): self
     {
-        $this->nombre = $nombre;
+        $this->nombre = $this->db->real_escape_string( $nombre );
 
         return $this;
     }
@@ -77,7 +59,7 @@ class ProductModel {
     /**
      * Get the value of descripcion
      */
-    public function getDescripcion()
+    public function getDescription()
     {
         return $this->descripcion;
     }
@@ -85,9 +67,9 @@ class ProductModel {
     /**
      * Set the value of descripcion
      */
-    public function setDescripcion($descripcion): self
+    public function setDescription($descripcion): self
     {
-        $this->descripcion = $descripcion;
+        $this->descripcion = $this->db->real_escape_string( $descripcion );
 
         return $this;
     }
@@ -95,7 +77,7 @@ class ProductModel {
     /**
      * Get the value of precio
      */
-    public function getPrecio()
+    public function getPrice()
     {
         return $this->precio;
     }
@@ -103,9 +85,9 @@ class ProductModel {
     /**
      * Set the value of precio
      */
-    public function setPrecio($precio): self
+    public function setPrice($precio): self
     {
-        $this->precio = $precio;
+        $this->precio = $this->db->real_escape_string( $precio );
 
         return $this;
     }
@@ -123,7 +105,7 @@ class ProductModel {
      */
     public function setStock($stock): self
     {
-        $this->stock = $stock;
+        $this->stock = $this->db->real_escape_string( $stock );
 
         return $this;
     }
@@ -131,7 +113,7 @@ class ProductModel {
     /**
      * Get the value of oferta
      */
-    public function getOferta()
+    public function getOffer()
     {
         return $this->oferta;
     }
@@ -139,9 +121,9 @@ class ProductModel {
     /**
      * Set the value of oferta
      */
-    public function setOferta($oferta): self
+    public function setOffer($oferta): self
     {
-        $this->oferta = $oferta;
+        $this->oferta = $this->db->real_escape_string( $oferta );
 
         return $this;
     }
@@ -149,7 +131,7 @@ class ProductModel {
     /**
      * Get the value of imagen
      */
-    public function getImagen()
+    public function getImage()
     {
         return $this->imagen;
     }
@@ -157,9 +139,9 @@ class ProductModel {
     /**
      * Set the value of imagen
      */
-    public function setImagen($imagen): self
+    public function setImage($imagen): self
     {
-        $this->imagen = $imagen;
+        $this->imagen = $this->db->real_escape_string( $imagen );
 
         return $this;
     }
@@ -172,6 +154,21 @@ class ProductModel {
     public function getAll() {
 
         return $this->db->query("SELECT * FROM productos ORDER BY id DESC");
+
+    }
+
+    public function save() {
+        
+        $sql    = "INSERT INTO productos VALUES( NULL, {$this->getCategoryId()}, '{$this->getName()}', '{$this->getDescription()}', '{$this->getPrice()}', '{$this->getStock()}', NULL, curdate(), NULL)";
+        $save   = $this->db->query( $sql );
+        $result = false;
+
+        
+
+        if ( $save )
+            $result = true;
+
+        return $result;
 
     }
 
