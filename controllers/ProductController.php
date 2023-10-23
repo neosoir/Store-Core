@@ -6,6 +6,9 @@ class ProductController {
 
     public function index() {
 
+        $productClass = new ProductModel;
+        $products = $productClass->getRadom(6);
+
         require_once 'views/product/top.php';
 
     }
@@ -83,7 +86,7 @@ class ProductController {
 
                     $product->setId( $id );
                     $save = $product->edit();
-                    
+
                 }
 
                 else    

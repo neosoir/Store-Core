@@ -175,6 +175,12 @@ class ProductModel {
 
     }
 
+    public function getRadom( $limit ) {
+
+        return $this->db->query("SELECT * FROM productos ORDER BY RAND() LIMIT $limit");
+
+    }
+
     /**
      * Get all products from database
      *
