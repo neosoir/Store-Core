@@ -39,9 +39,16 @@ class ProductController {
             $price = isset( $_POST['price'] ) ? $_POST['price'] : false;
             $stock = isset( $_POST['stock'] ) ? $_POST['stock'] : false;
             $category = isset( $_POST['category'] ) ? $_POST['category'] : false;
-            //$image = isset( $_POST['image'] ) ? $_POST['image'] : false;
+            $image = isset( $_FILES['image'] ) ? $_FILES['image'] : false;
 
-            if ( $name && $description && $price && $stock && $category ) {
+            /* echo "<pre>";
+            var_dump($image);
+            echo "</pre>";
+
+            die();
+             */
+            if ( $name && $description && $price && $stock && $category && $image ) {
+                
                 
                 $product = new ProductModel();
 
@@ -50,6 +57,30 @@ class ProductController {
                 $product->setPrice($price);
                 $product->setStock($stock);
                 $product->setCategoryId($category);
+
+                /* var_dump($_FILES);
+                die(); */
+
+                // Image.
+                $file = $_FILES['image'];
+                $filename = $file['name'];
+                $filetype = $file['type'];
+
+                if  (
+                        ( $filetype == 'image/jpg' )
+                        || ( $filetype == 'image/jpeg' )
+                        || ( $filetype == 'image/png' )
+                        || ( $filetype == 'image/gif' )
+                    ) 
+                {
+
+                    if ( !is_dir( 'uploads/images' ) )
+                        mkdir('uploads/images', 0777, true);
+
+                    move_uploaded_file( $file['tmp_name'], 'uploads/images/' . $filename );
+                    $product->setImage($filename);
+
+                }
 
                 $save = $product->save();
 

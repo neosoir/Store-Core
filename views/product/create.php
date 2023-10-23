@@ -4,7 +4,7 @@ $categories = Utils::showCategories();
 
 <h1>Crear nuevos productos</h1>
 <div class="form_container">
-    <form action="<?= base_url ?>product/save" method="POST">
+    <form action="<?= base_url ?>product/save" method="POST" enctype="multipart/form-data">
     
         <label for="name">Nombre</label>
         <input type="text" name="name">

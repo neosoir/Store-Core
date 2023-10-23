@@ -2,6 +2,13 @@
 
 <a class="button button-small" href="<?= base_url ?>product/create">Crear Producto</a>
 
+<?php if( isset( $_SESSION['product'] ) && $_SESSION['product'] == 'complete' ): ?>
+    <strong class="alert_green">El producto se ha creado correctamente</strong>
+<?php elseif( isset( $_SESSION['product'] ) && $_SESSION['product'] == 'failed' ): ?>
+    <strong class="alert_red">El producto se No ha creado correctamente</strong>
+<?php endif; ?>
+<?php Utils::deleteSession('product') ?>
+
 <table>
     <tr>
         <th>ID</th>
