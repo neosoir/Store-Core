@@ -29,6 +29,16 @@ class Utils {
 
     }
 
+    public static function isIdentity() {
+
+        if ( !isset( $_SESSION['identity'] ) )
+            header("Location:" . base_url);
+
+        else 
+            return true;
+
+    }
+
     public static function showCategories() {
 
         require_once 'models/CategoryModel.php';

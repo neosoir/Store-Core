@@ -208,15 +208,29 @@ class OrdertModel {
      *
      * @return void
      */
-    public function getAllByUser() {
+    public function getOneByUser() {
 
-        $sql = "SELECT p.id, p.coste FROM pedidos p";
-        $sql .= " INNER JOIN lineas_pedidos lp ON lp.pedido_id = p.id";
-        $sql .= " WHERE p.usuario_id = {$this->getUserId()} ORDER BY p.id DESC LIMIT 1";
+        $sql = "SELECT id, coste FROM pedidos";
+        $sql .= " WHERE usuario_id = {$this->getUserId()} ORDER BY id DESC LIMIT 1";
 
         return $this->db->query( $sql )->fetch_object();
 
     }
+
+    /**
+     * Get all products from database
+     *
+     * @return void
+     */
+    public function getAllByUser() {
+
+        $sql = "SELECT * FROM pedidos";
+        $sql .= " WHERE usuario_id = {$this->getUserId()} ORDER BY id DESC";
+
+        return $this->db->query( $sql );
+
+    }
+
 
     public function getProductByOrder( $id ): object {
 

@@ -37,12 +37,11 @@
 
             <?php if ( isset( $_SESSION['identity'] ) ): ?>
                 <li><a href="">Mis Pedidos</a></li>
+                <li><a href="<?= base_url ?>order/myorders">Mis Pedidos</a></li>
                 <li><a href="<?= base_url ?>user/logout">Cerrar sesion</a></li>
             <?php else: ?>
                 <li><a href="<?= base_url ?>user/register">Registrate Aqui</a></li>
             <?php endif; ?>
-
-            
         </ul>
     </div>
 </aside>

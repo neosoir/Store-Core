@@ -60,7 +60,7 @@ class OrderController {
             
             $orderClass = new OrdertModel;
             $orderClass->setUserId( $identity->id );
-            $order = (object)$orderClass->getAllByUser();
+            $order = (object)$orderClass->getOneByUser();
 
             $products = new OrdertModel;
             $products = $products->getProductByOrder( $order->id );
@@ -68,6 +68,19 @@ class OrderController {
         }
 
         require_once 'views/order/confirm.php';
+
+    }
+
+    public function myOrders() {
+
+        Utils::isIdentity();
+        $user_id = $_SESSION['identity']->id;
+        $orderClass = new OrdertModel;
+
+        $orderClass->setUserId( $user_id );
+        $orders = $orderClass->getAllByUser();
+
+        require_once 'views/order/my_orders.php';
 
     }
 
