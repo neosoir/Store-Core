@@ -208,7 +208,7 @@ class OrdertModel {
      *
      * @return void
      */
-    public function getOnByUser() {
+    public function getAllByUser() {
 
         $sql = "SELECT p.id, p.coste FROM pedidos p";
         $sql .= " INNER JOIN lineas_pedidos lp ON lp.pedido_id = p.id";
@@ -218,7 +218,7 @@ class OrdertModel {
 
     }
 
-    public function getProductByOrder( $id ) {
+    public function getProductByOrder( $id ): object {
 
         $sql = "SELECT pr.*, lp.unidades FROM productos pr";
         $sql .= " INNER JOIN lineas_pedidos lp ON pr.id = lp.producto_id";

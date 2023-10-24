@@ -59,8 +59,8 @@ class OrderController {
         if ( isset( $identity ) ) {
             
             $orderClass = new OrdertModel;
-            $orderClass-> setUserId( $identity->id );
-            $order = $orderClass->getOnByUser();
+            $orderClass->setUserId( $identity->id );
+            $order = (object)$orderClass->getAllByUser();
 
             $products = new OrdertModel;
             $products = $products->getProductByOrder( $order->id );
