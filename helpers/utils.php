@@ -96,4 +96,47 @@ class Utils {
 
     }
 
+    public static function getOrderTable( $order, $products ) {
+
+        ?>
+        <?php if ( isset( $order ) ): ?>
+            
+            <h3>Datos del Pedido</h3><br>
+            Número de Pedido: <?= $order->id ?><br>
+            Total a Pagar: $<?= $order->coste ?><br>
+            Productos:<br><br>
+            
+            <table>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Unidades</th>
+                    <th>Total</th>
+                </tr>
+                <?php while( $product = $products->fetch_object() ): ?>
+                    <tr>
+                        <td>
+                            <?php if ( $product->imagen ): ?>
+                                <img class="img_carrito" src="<?= base_url ?>uploads/images/<?= $product->imagen ?>" alt="producto">
+                            <?php else: ?>
+                                    <img class="img_carrito" src="<?= base_url ?>assets/img/camiseta.png" alt="producto">
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?= base_url ?>product/look&id=<?= $product->id ?>"><?= $product->nombre ?></a>
+                        </td>
+                        <td><?= $product->precio ?></td>
+                        <td><?= $product->unidades ?></td>
+                        <td>$<?= ( $product->unidades * $product->precio ) ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </table>
+
+        <?php endif; ?>
+
+        <?php
+
+    }
+
 }

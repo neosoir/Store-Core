@@ -74,13 +74,38 @@ class OrderController {
     public function myOrders() {
 
         Utils::isIdentity();
-        $user_id = $_SESSION['identity']->id;
+        $user_id    = $_SESSION['identity']->id;
         $orderClass = new OrdertModel;
 
         $orderClass->setUserId( $user_id );
         $orders = $orderClass->getAllByUser();
 
         require_once 'views/order/my_orders.php';
+
+    }
+
+    public function details() {
+
+        Utils::isIdentity();
+
+        $id = $_GET['id'];
+        if ( isset( $id ) ) {
+            
+            // Get order
+            $orderClass = new OrdertModel;
+            $orderClass->setId($id);
+            $order = $orderClass->getOne();
+
+            // Get Products.
+            $productClass = new OrdertModel;
+            $products = $productClass->getProductByOrder($id); 
+            
+            require_once 'views/order/detail.php';
+
+        }
+
+        else
+            header('Location:' . base_url . 'order/my_orders.php');
 
     }
 
