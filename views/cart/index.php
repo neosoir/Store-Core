@@ -30,5 +30,5 @@ $stats = Utils::statsCart();
 <br>
 <div class="total-carrito">
     <h3>Precio Total: $<?= $stats['total'] ?></h3>
-    <a href="" class="button button-pedido">Finalizar Compra</a>
+    <a href="<?= base_url ?>order/do" class="button button-pedido">Finalizar Compra</a>
 </div>
