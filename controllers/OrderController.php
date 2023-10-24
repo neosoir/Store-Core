@@ -54,6 +54,19 @@ class OrderController {
 
     public function confirm() {
 
+        $identity = $_SESSION['identity'];
+
+        if ( isset( $identity ) ) {
+            
+            $orderClass = new OrdertModel;
+            $orderClass-> setUserId( $identity->id );
+            $order = $orderClass->getOnByUser();
+
+            $products = new OrdertModel;
+            $products = $products->getProductByOrder( $order->id );
+
+        }
+
         require_once 'views/order/confirm.php';
 
     }

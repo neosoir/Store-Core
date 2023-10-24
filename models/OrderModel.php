@@ -203,6 +203,36 @@ class OrdertModel {
 
     }
 
+    /**
+     * Get all products from database
+     *
+     * @return void
+     */
+    public function getOnByUser() {
+
+        $sql = "SELECT p.id, p.coste FROM pedidos p";
+        $sql .= " INNER JOIN lineas_pedidos lp ON lp.pedido_id = p.id";
+        $sql .= " WHERE p.usuario_id = {$this->getUserId()} ORDER BY p.id DESC LIMIT 1";
+
+        return $this->db->query( $sql )->fetch_object();
+
+    }
+
+    public function getProductByOrder( $id ) {
+
+        $sql = "SELECT pr.*, lp.unidades FROM productos pr";
+        $sql .= " INNER JOIN lineas_pedidos lp ON pr.id = lp.producto_id";
+        $sql .= " WHERE pedido_id = {$id}";
+
+
+
+        /* var_dump($sql);
+        die; */
+
+        return $this->db->query( $sql );
+
+    }
+
     public function save() {
         
         $sql    = "INSERT INTO pedidos VALUES( NULL, {$this->getUserId()}, '{$this->getProvince()}', '{$this->getLocation()}', '{$this->getAddress()}', {$this->getCost()}, 'confirm', curdate(), curtime())";
