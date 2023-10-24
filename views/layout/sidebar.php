@@ -1,5 +1,17 @@
+<?php 
+    $stats = Utils::statsCart();
+?>
+
 <!-- Sidebar. -->
 <aside id="lateral">
+    <div class="block_aside" id="carrito">
+        <h3>Mi Carrio</h3>
+        <ul>
+            <li><a href="<?= base_url ?>cart/index">Productos (<?= $stats['count'] ?>)</a></li>
+            <li><a href="<?= base_url ?>cart/index">Total: $<?= $stats['total'] ?></a></li>
+            <li><a href="<?= base_url ?>cart/index">Ver Carrito</a></li>
+        </ul>
+    </div>
     <div id="login" class="blok_side">
         <h3>Entrar a la Web</h3>
         <?php if ( !isset( $_SESSION['identity'] ) ): ?>

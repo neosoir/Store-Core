@@ -13,7 +13,7 @@
         <div class="data">
             <p class="description"><?= $product->descripcion ?></p>
             <p class="price">$<?= $product->precio ?></p>
-            <a class="button">Comprar</a>
+            <?php Utils::showAddToCartButton( $product->id ) ?>
         </div>
             
     </div>

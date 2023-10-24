@@ -37,6 +37,12 @@ class Utils {
 
     }
 
+    public static function showAddToCartButton( $productId ) {
+        ?>
+        <a href="<?= base_url ?>cart/add&id=<?= $productId ?>" class="button">Comprar</a>
+        <?php
+    }
+
     public static function showProductsLopp( $products ) {
 
         ?>
@@ -51,11 +57,33 @@ class Utils {
                     <h2><?= $product->nombre ?></h2>
                 </a>
                 <p><?= $product->precio ?></p>
-                <a href="" class="button">Comprar</a>
+                <?php self::showAddToCartButton( $product->id ) ?>
             </div>
         <?php endwhile; ?>
         <?php
         
+    }
+
+    public static function statsCart() {
+
+        $stats = [
+            'count' => 0,
+            'total' => 0,
+        ];
+
+        if ( isset( $_SESSION['cart'] ) ) {
+
+            // Count
+
+            foreach ($_SESSION['cart'] as $key => $product) {
+                $stats['total'] += ( $product['price'] * $product['amount'] );
+                $stats['count'] += $product['amount'];
+            }
+        }
+
+
+        return $stats;
+
     }
 
 }
