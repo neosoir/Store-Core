@@ -293,5 +293,20 @@ class OrdertModel {
     }
 
 
+    public function updateOne() {
+
+        $sql    = "UPDATE pedidos SET estado = '{$this->getState()}' ";
+        $sql    .= " WHERE id = {$this->getId()}";
+
+        $save   = $this->db->query( $sql );
+        $result = false;
+
+        if ( $save )
+            $result = true;
+
+        return $result;
+
+    }
+
 
 }

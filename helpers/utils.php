@@ -102,6 +102,7 @@ class Utils {
         <?php if ( isset( $order ) ): ?>
             
             <h3>Datos del Pedido</h3><br>
+            Estado: <?= self::showStatus( $order->estado ) ?><br>
             Número de Pedido: <?= $order->id ?><br>
             Total a Pagar: $<?= $order->coste ?><br>
             Productos:<br><br>
@@ -136,6 +137,36 @@ class Utils {
         <?php endif; ?>
 
         <?php
+
+    }
+
+    public static function showStatus( $status ) {
+
+        switch ($status) {
+
+            case 'confirm':
+                $value = 'Pendiente';
+                break;
+
+            case 'preparation':
+                $value = 'En Preparacion';
+                break;
+            
+            case 'ready':
+                $value = 'Preparado';
+                break;
+
+            case 'sended':
+                $value = 'Enviado';
+                break;
+            
+            default:
+                $value = 'Pendiente';
+                break;
+
+        }
+
+        return $value;
 
     }
 

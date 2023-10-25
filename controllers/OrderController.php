@@ -109,4 +109,41 @@ class OrderController {
 
     }
 
+
+    public function manage()  {
+
+        Utils::isAdmin();
+        $manage = true;
+
+        $orderClass = new OrdertModel;
+        $orders = $orderClass->getAll();
+
+        require_once 'views/order/my_orders.php';
+        
+    }
+
+    public function state() {
+
+        Utils::isAdmin();
+
+        if ( isset( $_POST['order_id'] ) && isset( $_POST['state'] ) ) {
+
+            $id     = $_POST['order_id'];
+            $state  = $_POST['state'];
+            
+            // Update state order.
+            $orderClass = new OrdertModel;
+            $orderClass->setId( $id );
+            $orderClass->setState( $state );
+            $orderClass->updateOne();
+
+            header("Location:" . base_url . 'order/details&id=' . $id);
+
+        }
+        else {
+            header("Location:" . base_url);
+        }
+
+    }
+
 }
