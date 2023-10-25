@@ -64,25 +64,50 @@ class CartController {
 
     public function remove() {
 
-        $index = $_GET['index'];
+        $index = (int)$_GET['index'];
 
+        if ( isset( $index )  ) {
 
-
-        reset($_SESSION['cart']);
-        if ( $index  ) {
-
-            if ( $index == '0' ) 
+            if ( $index == 0 ) 
                 array_shift($_SESSION['cart']);
 
-            else
+            else 
                 unset( $_SESSION['cart'][$index] ) ;
-
 
         }
 
         header("Location:" . base_url . 'cart/index');
 
         
+    }
+
+    public function up() {
+
+        $index = $_GET['index'];
+
+        if ( isset( $index ) ) 
+            $_SESSION['cart'][$index]['amount']++;
+
+        header("Location:" . base_url . 'cart/index'); 
+
+    }
+
+    public function down() {
+
+        $index = (int)$_GET['index'];
+
+        if ( isset( $index ) ) {
+
+            $_SESSION['cart'][$index]['amount']--;
+
+            if ( $_SESSION['cart'][$index]['amount'] == 0 ) {
+                $this->remove();
+            }
+
+        }
+
+        header("Location:" . base_url . 'cart/index'); 
+
     }
 
     public function delete() {

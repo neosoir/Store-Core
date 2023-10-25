@@ -24,7 +24,13 @@ $stats = Utils::statsCart();
                     <a href="<?= base_url ?>product/look&id=<?= $product->id ?>"><?= $product->nombre ?></a>
                 </td>
                 <td><?= $product->precio ?></td>
-                <td><?= $value['amount'] ?></td>
+                <td>
+                    <?= $value['amount'] ?>
+                    <div class="updown-unidades">
+                        <a class="button" href="<?= base_url ?>cart/up&index=<?= $index ?>">+</a>
+                        <a class="button" href="<?= base_url ?>cart/down&index=<?= $index ?>">-</a>
+                    </div>
+                </td>
                 <td>$<?= ( $value['amount'] * $product->precio ) ?></td>
                 <td>
                     <a href="<?= base_url ?>cart/remove&index=<?= $index ?>" class="button button-carrito button-red">x</a>
